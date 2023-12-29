@@ -42,6 +42,7 @@ class CarouselDemo extends StatelessWidget {
             '/position': (ctx) => KeepPageviewPositionDemo(),
             '/multiple': (ctx) => MultipleItemDemo(),
             '/zoom': (ctx) => EnlargeStrategyZoomDemo(),
+            '/new': (ctx) => CarouselDetails(),
           },
         );
       },
@@ -98,6 +99,7 @@ class CarouselDemoHome extends StatelessWidget {
           DemoItem('Keep pageview position demo', '/position'),
           DemoItem('Multiple item in one screen demo', '/multiple'),
           DemoItem('Enlarge strategy: zoom demo', '/zoom'),
+          DemoItem('Gesture Detector Element', '/new'),
         ],
       ),
     );
@@ -659,6 +661,78 @@ class EnlargeStrategyZoomDemo extends StatelessWidget {
           items: imageSliders,
         ),
       ),
+    );
+  }
+}
+
+class CarouselDetails extends StatefulWidget {
+  // Car car;
+  CarouselDetails();
+
+  @override
+  _CarouselDetailsState createState() => _CarouselDetailsState();
+}
+
+class _CarouselDetailsState extends State<CarouselDetails> {
+ int _dragCounter = 0; // Contador para los gestos de deslizamiento
+  int _dragThreshold = 25; // Umbral para cambiar la imagen, ajustar según sea necesario
+
+  CarouselController _carouselController = CarouselController();
+
+  void _updateDrag(DragUpdateDetails details) {
+    setState(() {
+      _dragCounter++; // Incrementa el contador en cada deslizamiento
+        print({
+          _dragCounter,
+        });
+      if (_dragCounter >= _dragThreshold) { // Verifica si se alcanzó el umbral
+        print("se actualiza");
+        if (_dragCounter > 0) {
+          _carouselController.nextPage(animate: false);
+        } else {
+          _carouselController.previousPage(animate: false);
+        }
+
+        _dragCounter = 0; // Resetea el contador después de cambiar la imagen
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final Car car = widget.car;
+    Size screenSize = MediaQuery.of(context).size;
+    bool isTablet = screenSize.width > 768;
+    String responsiveType = (isTablet ? 'desktop' : 'mobile');
+    // List<String> imgList = ;
+    return Column(
+      children: [
+        GestureDetector(
+          onHorizontalDragUpdate: _updateDrag,
+          child: CarouselSlider(
+            carouselController: _carouselController,
+            options: CarouselOptions(
+              scrollPhysics: const NeverScrollableScrollPhysics(),
+              autoPlay: true,
+              viewportFraction: 1,
+              enableInfiniteScroll: true,
+            ),
+            items: imgList
+                .map(
+                  (item) => Container(
+                    child: Image.network(
+                      item,
+                      fit: BoxFit.fitWidth,
+                      width: double.infinity, // asegura que tenga el ancho máximo posible
+                      height: double.infinity,
+                      filterQuality: FilterQuality.medium, // asegura que tenga el alto máximo posible
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        )
+      ],
     );
   }
 }
