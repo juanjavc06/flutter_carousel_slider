@@ -1,4 +1,4 @@
-library carousel_slider;
+library carousel_slider_custom;
 
 import 'dart:async';
 
