@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  carousel_slider:
+  carousel_slider_custom:
     path: ../
 
 dev_dependencies:

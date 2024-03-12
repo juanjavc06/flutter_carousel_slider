@@ -2,7 +2,7 @@ library carousel_slider_custom;
 
 import 'dart:async';
 
-import 'package:carousel_slider/carousel_state.dart';
+import 'package:carousel_slider_custom/carousel_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
