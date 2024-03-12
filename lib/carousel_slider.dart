@@ -6,9 +6,9 @@ import 'package:carousel_slider_custom/carousel_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'carousel_controller.dart';
-import 'carousel_options.dart';
-import 'utils.dart';
+import 'package:carousel_slider_custom/carousel_controller.dart';
+import 'package:carousel_slider_custom/carousel_options.dart';
+import 'package:carousel_slider_custom/utils.dart';
 
 export 'carousel_controller.dart';
 export 'carousel_options.dart';
